@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+img {
+    border: 1px solid #000000;
+}
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+li {
+    flex-direction: column;
+    display: flex;
+}
+.app {
+    display: flex;
+    background-color: #8a2be2;
+    justify-content: center;
+}
+.repo-form {
+   justify-content: center;
+   margin-bottom: 20px;
+   height: 50px;
+}
