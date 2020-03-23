@@ -1,41 +1,54 @@
-// |----------------------then and catch----------------------------------------|
+class App {
+    constructor () {
+        this.repositories = [];
 
-// const minhaPromisse = () => new Promise ((resolve, reject) => {
-//     setTimeout(() => {resolve("ok")}, 2000);
-// });
+        this.formEl = document.querySelector(".repo-form");
+        this.listEl = document.querySelector(".repo-list");
 
-// minhaPromisse()
-// .then(response => {
-//     console.log(response)
-// })
-// .catch(err => {
-//     console.error(err)
-// });
+        this.registerHandlers();
+    }
+    registerHandlers() {
+        this.formEl.onsubmit = event => this.addRepository(event);           
+    }
 
+    addRepository (event) {
+        event.preventDefault();
 
-//|---------------------- async await------------------------------------------------------|
+        this.repositories.push( {
+            name: 'rocketseat.com.br',
+            description: 'tire a sua ideia do papel e de vida a sua start up',
+            avatar_url: 'https://avatars0.githubusercontent.com/u/28929274?v=4',
+            html_url: 'https://github.com/vinicius3g/aplica-o-com-ES6'
+        });
+        this.render();
+    }
+    render() {
+        this.listEl.innerHTML = '';
 
-// async function executaPromise() {
-//     console.log(await minhaPromisse());
-//     console.log(await minhaPromisse());
-//     console.log(await minhaPromisse());
-// }
+        this.repositories.forEach( repo => {
+            let imgEl = document.createElement('img');
+            imgEl.setAttribute('src',repo.avatar_url);
 
-// executaPromise()
+            let titleEl = document.createElement('strong');
+            titleEl.appendChild(document.createTextNode(repo.name));
 
-//|--------------------------------------------axios--------------------------------------------|
+            let descriptionEl = document.createElement('p');
+            descriptionEl.appendChild(document.createTextNode(repo.description));
 
-import axios from "axios";
+            let linkEl = document.createElement('a');
+            linkEl.setAttribute('target', '_blank');
+            linkEl.appendChild(document.createTextNode("acessar"));
 
-class api {
-    static async getUseInfo(username) {
-        try {
-            const  response = await axios.get(`https://api.github.com/users/${username}`);
-            console.log(response);
-        }catch(err) {
-            console.warn('erro na api') 
-        }
-    };
+            let listItemEl = document.createElement('li');
+            listItemEl.appendChild(imgEl);
+            listItemEl.appendChild(titleEl);
+            listItemEl.appendChild(descriptionEl);
+            listItemEl.appendChild(linkEl);
+
+            this.listEl.appendChild(listItemEl)
+
+        })
+    }
 }
-api.getUseInfo('viniciusdefault')
 
+new App();
